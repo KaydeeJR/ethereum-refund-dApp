@@ -14,12 +14,12 @@ class AlchemyConnect():
         """
         connects to the Ethereum test net : goerli
         """
-        alchemy_url = "https://eth-goerli.g.alchemy.com/v2/Rc-rs7Xsdcyt0i404b5HDMl2qbEzYddo"
-        self.w3 = Web3(Web3.HTTPProvider(alchemy_url))
         # path to environment file
         path = str(Path(os.getcwd()))+"/.env"
         # access environment variables
         load_dotenv(path)
+        alchemy_url = os.getenv('ALCHEMY_URL')
+        self.w3 = Web3(Web3.HTTPProvider(alchemy_url))
     
     def confirm_connection(self):
         """
@@ -53,6 +53,7 @@ class AlchemyConnect():
         return(tx)
 
 if __name__=="__main__":
+    
     connect_class = AlchemyConnect()
     SECRET_KEY = os.getenv('SECRET_KEY')
     ADDRESS = os.getenv('ACCOUNT_ADDRESS')
